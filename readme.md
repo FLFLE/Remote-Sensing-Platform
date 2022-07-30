@@ -1,3 +1,11 @@
+# 平台在线体验
+
+在线体验地址：[www.scuzfy.com](http://www.scuzfy.com)
+
+[Scu·Earth](http://www.scuzfy.com)
+
+由于服务器硬件和内网穿透带宽浪费，在线体验的性能要差于本地部署，推荐在使用每个功能时，每次只上传一张或者一对遥感图像，以避免网络超时。
+
 # 所需环境
 
 ```python
@@ -56,46 +64,46 @@ CUDA各版本下载地址：（paddlepaddle目前支持快速安装的CUDA版本
 ### 安装paddlepaddle：
 
 - 确认python版本：
-    - 使用以下命令确认python版本为3.7/3.8：
-    
-    ```powershell
-    python --version
-    ```
-    
+
+  - 使用以下命令确认python版本为3.7/3.8：
+
+  ```powershell
+  python --version
+  ```
+
 - 确认pip版本是否为20.2.2或更高版本：
-  
-    ```powershell
-    python -m pip --version
-    ```
-    
-    如果pip版本不符合要求，使用如下命令更新：
-    
-    ```powershell
-    python -m pip install --upgrade pip
-    ```
-    
+
+  ```powershell
+  python -m pip --version
+  ```
+
+  如果pip版本不符合要求，使用如下命令更新：
+
+  ```powershell
+  python -m pip install --upgrade pip
+  ```
+
 - 使用以下命令确认python和pip是64bit，并且处理器是x86_64：
-  
-    ```powershell
-    python -c "import platform;print(platform.architecture()[0]);print(platform.machine())"
-    ```
-    
-    输出结果的第一行为64bit，第二行输出为”x86_64”、”x64”或”AMD64”即可
-    
+
+  ```powershell
+  python -c "import platform;print(platform.architecture()[0]);print(platform.machine())"
+  ```
+
+  输出结果的第一行为64bit，第二行输出为”x86_64”、”x64”或”AMD64”即可
+
 - CUDA安装成功后，根据安装的CUDA版本，执行对应的安装指令（以CUDA 10.2为例）
-  
-    ```powershell
-    python -m pip install paddlepaddle-gpu==2.3.0 -i https://mirror.baidu.com/pypi/simple
-    ```
-    
-    其它CUDA版本安装指令见paddlepaddle官网：
-    
-    [开始使用_飞桨-源于产业实践的开源深度学习平台](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/zh/install/pip/windows-pip.html)
-    
+
+  ```powershell
+  python -m pip install paddlepaddle-gpu==2.3.0 -i https://mirror.baidu.com/pypi/simple
+  ```
+
+  其它CUDA版本安装指令见paddlepaddle官网：
+
+  [开始使用_飞桨-源于产业实践的开源深度学习平台](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/zh/install/pip/windows-pip.html)
 
 ### 验证安装：
 
-安装完成后您可以使用 `python` 进入python解释器，输入`import paddle` ，再输入 `paddle.utils.run_check()`  ，如果出现`PaddlePaddle is installed successfully!`，说明您已成功安装。
+安装完成后您可以使用 `python` 进入python解释器，输入`import paddle` ，再输入 `paddle.utils.run_check()`  ，如果出现`PaddlePaddle is installed successfully!`，说明您已成功安装。
 
 ## paddlers安装：
 
@@ -146,7 +154,6 @@ npm install -g cnpm --registry=registry.npm.taobao.org
 cnpm install -g vue
 cnpm install -g webpack
 cnpm install -g express
-npm install -g @vue/cli
 cnpm install @vue/cli -g
 ```
 
@@ -197,7 +204,6 @@ DATABASES = {
 将 `name`, `user` , `password` , `port` 分别修改为您自己的 `前面新创建的数据库名` , `登录mysql的用户名` , `mysql登陆密码` , `mysql运行端口` 
 
 > 如果您不想修该源代码配置，可以直接将新建的数据库命名为paddle，数据库密码设置为goodnight
->
 
 ### 运行项目
 
@@ -216,4 +222,8 @@ python [absolute path]/manage.py runserver 0.0.0.0:8000
 
 ## 访问网站
 
-浏览器中访问 `127.0.0.1:8080`
+浏览器中访问 `127.0.0.1:8080` 
+
+# 项目github地址
+
+[https://github.com/FLFLE/Remote-Sensing-Platform](https://github.com/FLFLE/Remote-Sensing-Platform)
