@@ -1,0 +1,6 @@
+Django==3.2.13
+djangorestframework==3.13.1
+numpy==1.19.3
+opencv_python==4.5.5.64
+Pillow==9.1.1
+PyMySQL==1.0.2
