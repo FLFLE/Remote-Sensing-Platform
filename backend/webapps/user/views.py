@@ -19,20 +19,20 @@ class UserView(APIView):
                 {"msg": "action error"}, status.HTTP_400_BAD_REQUEST
             )
 
-    def delete(self, request):
-        return self.log_out(request)
+    # def delete(self, request):
+    #     return self.log_out(request)
 
-    def log_out(self, request):
-        email_address = request.data["email_address"]
-        try:
-            user = User.objects.get(email_address=email_address)
-            user.is_login = 0
-            user.save()
-            return generate_response({"msg": "logged out"}, status.HTTP_204_NO_CONTENT)
-        except Exception as e:
-            return generate_response(
-                {"msg": "something is error"}, status.HTTP_400_BAD_REQUEST
-            )
+    # def log_out(self, request):
+    #     email_address = request.data["email_address"]
+    #     try:
+    #         user = User.objects.get(email_address=email_address)
+    #         user.is_login = 0
+    #         user.save()
+    #         return generate_response({"msg": "logged out"}, status.HTTP_204_NO_CONTENT)
+    #     except Exception as e:
+    #         return generate_response(
+    #             {"msg": "something is error"}, status.HTTP_400_BAD_REQUEST
+    #         )
 
     def login(self, request):
         msg = {"msg": "", "user": ""}
@@ -43,12 +43,12 @@ class UserView(APIView):
         try:
             user = User.objects.get(email_address=email_address)
         except Exception as e:
-            msg["msg"] = "user is not exist"
+            msg["msg"] = "输入的邮箱未注册！"
             return generate_response(msg, status.HTTP_401_UNAUTHORIZED)
 
         # 用户存在的情况下校验密码是否正确以及是否已登录，正确则返回200.错误返回401
         if not user.verify_password(password):
-            msg["msg"] = "password error"
+            msg["msg"] = "密码输入有误！"
             return generate_response(msg, status.HTTP_401_UNAUTHORIZED)
         # elif user.has_login():
         #     msg["msg"] = "you have already logged in"
@@ -60,7 +60,7 @@ class UserView(APIView):
         # 将用户的个人信息序列化，并返回前端
         serializer = UserSerializer(user)
         current_user = serializer.data
-        msg["msg"] = "login success"
+        msg["msg"] = "登录成功！"
         msg["user"] = current_user
         return generate_response(msg, status.HTTP_200_OK)
 
@@ -78,7 +78,7 @@ class UserView(APIView):
             )
         except Exception as e:
             return generate_response(
-                {"msg": "vtf code is error"}, status.HTTP_406_NOT_ACCEPTABLE
+                {"msg": "验证码输入有误！"}, status.HTTP_406_NOT_ACCEPTABLE
             )
 
         # 向数据库插入用户信息，成功返回 200，失败返回 406
@@ -88,9 +88,9 @@ class UserView(APIView):
             )
         except Exception as e:
             return generate_response(
-                {"msg": "regis fail"}, status.HTTP_406_NOT_ACCEPTABLE
+                {"msg": "注册失败！"}, status.HTTP_406_NOT_ACCEPTABLE
             )
-        return generate_response({"msg": "register success"}, status.HTTP_200_OK)
+        return generate_response({"msg": "注册成功！"}, status.HTTP_200_OK)
 
 
 class SendVertificationCode(APIView):
@@ -115,18 +115,18 @@ class SendVertificationCode(APIView):
                 )
                 mail.send_vtf_mail(email_address, code)
                 return generate_response(
-                    {"msg": "send successfully"}, status.HTTP_200_OK
+                    {"msg": "验证码发送成功！"}, status.HTTP_200_OK
                 )
 
             # 如果不是第一次发送，则更新表中之前保存的验证码
             vtf.vertificationCode = code
             vtf.save()
             mail.send_vtf_mail(email_address, code)
-            return generate_response({"msg": "send successfully"}, status.HTTP_200_OK)
+            return generate_response({"msg": "验证码发送成功！"}, status.HTTP_200_OK)
 
         # 用户已经注册过则不予发送
         return generate_response(
-            {"msg": "user is already exist"}, status.HTTP_403_FORBIDDEN
+            {"msg": "此邮箱已注册过！"}, status.HTTP_403_FORBIDDEN
         )
 
 
@@ -153,11 +153,11 @@ class PasswordView(APIView):
             vtf.vertificationCode = code
             vtf.save()
             mail.send_vtf_mail(email_address, code)
-            return generate_response({"msg": "send successfully"}, status.HTTP_200_OK)
+            return generate_response({"msg": "验证码发送成功！"}, status.HTTP_200_OK)
         except Exception as e:
             # 用户输入了未注册的邮箱
             return generate_response(
-                {"msg": "the email_address has not registed"},
+                {"msg": "此邮箱未注册！"},
                 status.HTTP_401_UNAUTHORIZED,
             )
 
@@ -173,17 +173,17 @@ class PasswordView(APIView):
             # 新密码与旧密码相同时，不予重置
             if user.password == new_pwd:
                 return generate_response(
-                    {"msg": "new password is equals to old password"},
+                    {"msg": "新密码与旧密码相同，请重新输入！"},
                     status.HTTP_406_NOT_ACCEPTABLE,
                 )
             user.password = new_pwd
             user.save()
             return generate_response(
-                {"msg": "reset password successfully"}, status.HTTP_200_OK
+                {"msg": "密码重置成功！"}, status.HTTP_200_OK
             )
 
         return generate_response(
-            {"msg": "the vtf_code is wrong"}, status.HTTP_401_UNAUTHORIZED
+            {"msg": "验证码输入有误！"}, status.HTTP_401_UNAUTHORIZED
         )
 
     # 校验验证码的正确性

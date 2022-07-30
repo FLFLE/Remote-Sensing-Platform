@@ -69,4 +69,4 @@ class RemainTimeView(APIView):
             remaining_times = user.times
             return generate_response({"times": remaining_times}, status.HTTP_200_OK)
         except Exception as e:
-            return generate_response({"msg": "query fault"}, status.HTTP_404_NOT_FOUND)
+            return generate_response({"msg": "用户记录查询失败！"}, status.HTTP_404_NOT_FOUND)

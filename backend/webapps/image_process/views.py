@@ -33,7 +33,7 @@ class ImageView(APIView):
                 )
         else:
             return generate_response(
-                {"msg": "Not enough remaining times"}, status.HTTP_403_FORBIDDEN
+                {"msg": "用户本日使用次数不足，请明日再使用，或邮件联系我们。"}, status.HTTP_403_FORBIDDEN
             )
 
     # 变化检测
@@ -120,7 +120,7 @@ class ImageView(APIView):
         self.save_record(upload_list, result_list, email_address, action)
         # 返回状态信息和图片列表
         msg = {
-            "msg": "process success",
+            "msg": "图片处理成功！",
             "result": result_list,
             "input": upload_list,
             "statistic_list": statistic_list,
@@ -177,7 +177,7 @@ class ImageView(APIView):
         # release([pre])
         # 返回状态信息和图片列表
         msg = {
-            "msg": "process success",
+            "msg": "图片处理成功！",
             "result": result_list,
             "input": upload_list,
             "statistic_list": statistic_list,
@@ -229,7 +229,7 @@ class ImageView(APIView):
         self.save_record(upload_list, result_list, email_address, action)
         # release([pre])
         # 返回状态信息和图片列表
-        msg = {"msg": "process success", "result": result_list, "input": upload_list}
+        msg = {"msg": "图片处理成功！", "result": result_list, "input": upload_list}
         return generate_response(msg, status.HTTP_200_OK)
 
     # 地物分类功能
@@ -284,7 +284,7 @@ class ImageView(APIView):
         # release([pre])
         # 返回状态信息和图片列表
         msg = {
-            "msg": "process success",
+            "msg": "图片处理成功！",
             "result": result_list,
             "input": upload_list,
             "type_statistic": type_list,
