@@ -67,8 +67,8 @@ class ImageView(APIView):
         input_images = []
         # 变化像素的统计结果
         statistic_list = []
-
-        predictor = predictors.change_detection_predictor()
+        # predictor = predictors.change_detection_predictor()
+        predictor = predictors.change_detection_predictor
         for i in range(file_numbers):
             image = files[i]
             # 对于奇数项的图片，视作A标签图片
@@ -150,7 +150,8 @@ class ImageView(APIView):
         result_dir = os.path.join("backend/", access_result_dir)
         # 为每个用户单独创建文件夹
         self.mkdir([input_dir, result_dir])
-        pre = predictors.target_extraction_predictor()
+        # pre = predictors.target_extraction_predictor()
+        re = predictors.target_extraction_predictor
         for image in image_names:
             image_name = image.name
             # 将原图保存到相应文件夹
@@ -255,7 +256,8 @@ class ImageView(APIView):
         result_dir = os.path.join("backend/", access_result_dir)
         # 为每个用户单独创建文件夹
         self.mkdir([input_dir, result_dir])
-        pre = predictors.terrain_classification_predictor()
+        # pre = predictors.terrain_classification_predictor()
+        pre = predictors.terrain_classification_predictor
         for image in image_names:
             image_name = image.name
             # 将原图保存到相应文件夹

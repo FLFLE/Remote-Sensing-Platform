@@ -8,20 +8,31 @@ import numpy as np
 
 
 # 变化检测用到的推理器
-def change_detection_predictor():
-    return pdrs.deploy.Predictor(
+# def change_detection_predictor():
+#     return pdrs.deploy.Predictor(
+#         "backend/models/change_detection", use_gpu=True, gpu_id=0
+#     )
+
+change_detection_predictor = pdrs.deploy.Predictor(
         "backend/models/change_detection", use_gpu=True, gpu_id=0
     )
 
+# def target_extraction_predictor():
+#     return pdrs.deploy.Predictor(
+#         "backend/models/target_extraction", use_gpu=True, gpu_id=0
+#     )
 
-def target_extraction_predictor():
-    return pdrs.deploy.Predictor(
-        "backend/models/target_extraction", use_gpu=True, gpu_id=0
-    )
+target_extraction_predictor = pdrs.deploy.Predictor(
+    "backend/models/target_extraction", use_gpu=True, gpu_id=0
+)
 
 
-def terrain_classification_predictor():
-    return pdrs.deploy.Predictor(
+# def terrain_classification_predictor():
+#     return pdrs.deploy.Predictor(
+#         "backend/models/terrain_classification", use_gpu=True, gpu_id=0
+#     )
+
+terrain_classification_predictor = pdrs.deploy.Predictor(
         "backend/models/terrain_classification", use_gpu=True, gpu_id=0
     )
 
@@ -121,7 +132,7 @@ def infer(action, input_dir, result_dir, access_result_dir, image_name, **kw):
         }
         mod_access_path = os.path.join(access_result_dir, "mod_" + image_name)
         mod_save_path = os.path.join("backend/", mod_access_path)
-        mod_img = cv.addWeighted(original_img, 1.0, img, 0.48, 0)
+        mod_img = cv.addWeighted(original_img, 1.0, img, 0.42, 0)
         cv.imwrite(mod_save_path, mod_img)
         # release([predictor, result, img_ndarray, img])
         return [access_path, mod_access_path, type_dic]
